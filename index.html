@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이선희 — IT 기획 · 시스템 운영 포트폴리오</title>
+<meta name="description" content="현장 시스템의 고도화와 운영을 담당하는 IT 기획자 이선희의 포트폴리오">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#101a33;
+  --navy:#1c2d5e;
+  --blue:#3557d4;
+  --blue-soft:#eaeefb;
+  --paper:#fbfbf9;
+  --line:#e3e5ec;
+  --muted:#5d6577;
+  --dim:#9aa1b0;
+  --signal:#e4572e;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- header ---------- */
+header{border-bottom:1px solid var(--line);background:rgba(251,251,249,.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10}
+.nav{display:flex;justify-content:space-between;align-items:center;height:56px}
+.nav .brand{font-family:var(--mono);font-size:13px;color:var(--navy);font-weight:500}
+.nav ul{display:flex;gap:22px;list-style:none}
+.nav ul a{font-size:13.5px;color:var(--muted)}
+.nav ul a:hover{color:var(--navy);text-decoration:none}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 64px}
+.hero .label{color:var(--signal)}
+.hero h1{font-size:clamp(38px,6vw,58px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:14px 0 6px;color:var(--navy)}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .sub{font-size:17px;color:var(--muted);max-width:560px;margin-top:18px}
+.hero .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.hero .tags span{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:#fff;padding:6px 12px;border-radius:3px;color:var(--muted)}
+
+/* ---------- signature: process rail ---------- */
+.rail{margin:56px 0 0;border:1px solid var(--line);background:#fff;border-radius:10px;padding:26px 28px}
+.rail .label{margin-bottom:18px;display:block}
+.rail-flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.rail-step{flex:1;min-width:130px;position:relative;padding:4px 18px 4px 0}
+.rail-step + .rail-step{padding-left:18px;border-left:1px dashed var(--line)}
+.rail-step .num{font-family:var(--mono);font-size:11px;color:var(--signal)}
+.rail-step .name{font-weight:700;font-size:15.5px;color:var(--navy);margin:2px 0}
+.rail-step .desc{font-size:13px;color:var(--muted);line-height:1.55}
+.rail-note{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.rail-note strong{color:var(--navy);font-weight:600}
+
+/* ---------- sections ---------- */
+section{padding:72px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+.sec-head h2{font-size:26px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px}
+.about-grid p{color:#333a4c;margin-bottom:16px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;height:fit-content}
+.fact{background:#fff;padding:18px 20px}
+.fact b{display:block;font-size:22px;font-weight:800;color:var(--navy);font-family:var(--mono);letter-spacing:-.02em}
+.fact span{font-size:12.5px;color:var(--muted)}
+
+/* ---------- projects ---------- */
+.proj{border:1px solid var(--line);background:#fff;border-radius:12px;padding:34px 36px;margin-bottom:26px}
+.proj-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.proj-top .label b{color:var(--signal);font-weight:500}
+.proj h3{font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.proj .period{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.proj .summary{color:#333a4c;margin:14px 0 22px;max-width:660px}
+.proj-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.proj-cols h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;font-weight:500}
+.proj-cols ul{list-style:none}
+.proj-cols li{font-size:14px;color:#3b4356;padding:7px 0 7px 16px;position:relative;border-bottom:1px solid #f2f3f6;line-height:1.6}
+.proj-cols li::before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border-radius:1px;background:var(--blue)}
+.proj-cols li:last-child{border-bottom:none}
+.learn{margin-top:22px;background:var(--blue-soft);border-left:3px solid var(--blue);padding:14px 18px;font-size:14px;color:var(--navy);border-radius:0 8px 8px 0}
+.learn b{font-weight:700}
+.stack{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+.stack span{font-family:var(--mono);font-size:11.5px;background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--muted)}
+.side-badge{font-family:var(--mono);font-size:11px;color:#fff;background:var(--navy);padding:4px 10px;border-radius:3px;letter-spacing:.08em}
+
+/* ---------- skills ---------- */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.skill{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+.skill h4{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--blue)}
+.skill ul{list-style:none}
+.skill li{font-size:13.5px;color:#3b4356;padding:5px 0;line-height:1.55}
+
+/* ---------- edu ---------- */
+.edu-list{border-top:1px solid var(--line)}
+.edu{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line)}
+.edu .when{font-family:var(--mono);font-size:12.5px;color:var(--dim);padding-top:3px}
+.edu b{font-size:15.5px;color:var(--navy);font-weight:700}
+.edu p{font-size:13.5px;color:var(--muted);margin-top:3px}
+
+/* ---------- footer ---------- */
+footer{margin-top:88px;background:var(--navy);color:#c9d2ec;padding:64px 0}
+footer h2{color:#fff;font-size:30px;font-weight:800;letter-spacing:-.01em}
+footer .foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+footer a{color:#fff;font-family:var(--mono);font-size:14px;border-bottom:1px solid rgba(255,255,255,.35)}
+footer a:hover{text-decoration:none;border-bottom-color:#fff}
+footer .fine{font-size:12px;color:#8e9ac4;margin-top:34px;font-family:var(--mono)}
+
+@media (max-width:720px){
+  .about-grid,.proj-cols{grid-template-columns:1fr}
+  .edu{grid-template-columns:1fr;gap:4px}
+  .rail-step{min-width:46%}
+  .rail-step:nth-child(3){border-left:none;padding-left:0}
+  .nav ul{display:none}
+  .proj{padding:26px 22px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <span class="brand">LEE SEONHUI · PORTFOLIO</span>
+    <ul>
+      <li><a href="#about">소개</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#skills">역량</a></li>
+      <li><a href="#edu">교육·활동</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <span class="label">IT Planning · System Operation · 2026</span>
+    <h1>현장에서 시스템의 답을 찾는<br><em>IT 기획자, 이선희</em>입니다</h1>
+    <p class="sub">반도체 장비 제조사 DX팀에서 현장 서비스 시스템의 고도화와 운영을 담당하고 있습니다. 데이터가 만들어지는 현장의 조건을 이해하고, 시스템 간 데이터 흐름을 추적해 문제를 해결합니다.</p>
+    <div class="tags">
+      <span>요구사항 분석</span><span>프로세스 설계</span><span>화면 설계</span><span>ERP 연계</span><span>시스템 운영</span><span>ITSM</span>
+    </div>
+
+    <div class="rail">
+      <span class="label">제가 다루는 시스템의 공통 구조</span>
+      <div class="rail-flow">
+        <div class="rail-step"><span class="num">01</span><div class="name">접수</div><p class="desc">현장 이벤트와 요청을 유형 체계로 받아들이고</p></div>
+        <div class="rail-step"><span class="num">02</span><div class="name">실행</div><p class="desc">배정과 조치가 현장에서 이루어지게 하고</p></div>
+        <div class="rail-step"><span class="num">03</span><div class="name">기록</div><p class="desc">실적과 이력을 정확한 기준으로 남기고</p></div>
+        <div class="rail-step"><span class="num">04</span><div class="name">분석</div><p class="desc">쌓인 데이터로 유형을 분석해 개선으로 잇습니다</p></div>
+      </div>
+      <p class="rail-note"><strong>이 사이클의 품질은 화면이 아니라, 데이터가 만들어지는 현장의 조건에서 결정됩니다.</strong> 저는 이 관점으로 시스템을 기획하고 운영합니다.</p>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="sec-head"><h2>소개</h2><div class="rule"></div></div>
+    <div class="about-grid">
+      <div>
+        <p>현업과 개발 사이에서 요구사항을 구체화하고 프로세스를 설계하는 IT 기획자입니다. 현장 서비스 시스템 고도화, 전사 그룹웨어 도입, ITSM 체계 정립 프로젝트에서 AS-IS 분석부터 TO-BE 설계, 화면 기획, 오픈 이후 운영까지 수행했습니다.</p>
+        <p>시스템을 운영하며 배운 것은, 현장의 데이터 품질 문제는 대부분 사용자가 아니라 입력 구조와 데이터 기준에서 비롯된다는 점입니다. 문제를 화면에 보이는 증상이 아닌 데이터가 생성되고 전달되는 기준의 관점에서 추적하고, 이해관계자들이 같은 기준으로 판단할 수 있도록 구조화하는 일에 강점이 있습니다.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>3+</b><span>수행 프로젝트</span></div>
+        <div class="fact"><b>1년+</b><span>IT 기획·운영 실무</span></div>
+        <div class="fact"><b>PI</b><span>프로세스 통합 수행</span></div>
+        <div class="fact"><b>전사</b><span>시스템 도입·운영</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><h2>프로젝트</h2><div class="rule"></div></div>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <span class="label">Project <b>01</b> · System Enhancement</span>
+          <h3>현장 서비스(SVC) 시스템 고도화</h3>
+        </div>
+        <span class="period">2025.03 — 현재</span>
+      </div>
+      <p class="summary">고객사 생산 현장에 설치된 장비의 CS 업무를 관리하는 통합 서비스 플랫폼의 고도화 프로젝트. 분리 운영되던 두 개의 서비스 업무 프로세스를 하나로 통합하는 시스템 PI를 수행하며, AS-IS 분석부터 TO-BE 설계, 화면 기획까지 기획 전반을 담당했습니다.</p>
+      <div class="proj-cols">
+        <div>
+          <h4>담당 역할</h4>
+          <ul>
+            <li>시스템 기능 분석 및 요구사항 정의</li>
+            <li>AS-IS 업무 프로세스 분석, TO-BE 프로세스 설계</li>
+            <li>화면 설계서·와이어프레임 작성</li>
+            <li>현업·개발사 간 의사소통 창구, 일정·이슈 관리</li>
+          </ul>
+        </div>
+        <div>
+          <h4>문제 해결</h4>
+          <ul>
+            <li>ERP 연계 실적 데이터의 기준값 불일치로 발생한 정합성 이슈를 데이터 생성·전달 기준의 관점에서 추적, 이해관계자가 같은 기준으로 논의하도록 원인과 조치 방향을 정리</li>
+            <li>현장 입력 환경의 제약으로 발생하던 데이터 시차·누락을 입력 구조의 문제로 정의, 태블릿 실적 등록·작업 리포트 기능을 요구사항으로 반영</li>
+          </ul>
+        </div>
+      </div>
+      <div class="learn"><b>배운 것.</b> 시스템 간 연계 이슈는 화면의 증상이 아니라 데이터가 생성되고 전달되는 기준을 추적해야 풀린다는 것, 그리고 시스템 개선은 현장의 물리적 제약까지 포함해 설계해야 한다는 것.</div>
+      <div class="stack"><span>Figma</span><span>Jira</span><span>Notion</span><span>ERP 연계</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <span class="label">Project <b>02</b> · System Introduction</span>
+          <h3>전사 그룹웨어 도입 및 운영</h3>
+        </div>
+        <span class="period">2025.03 — 2025.10 (운영 지속)</span>
+      </div>
+      <p class="summary">전사 그룹웨어 도입 프로젝트에서 기능 검토부터 사내 HR 시스템과의 사용자·조직 정보 연동, 도입 후 운영 안정화까지 전 과정에 참여했습니다. 도입 이후에는 운영을 담당하며 사용자 요청 대응과 개선사항 반영을 수행하고 있습니다.</p>
+      <div class="proj-cols">
+        <div>
+          <h4>담당 역할</h4>
+          <ul>
+            <li>그룹웨어 기능 검토 및 도입 실무</li>
+            <li>HR 시스템 ↔ 그룹웨어 인사 정보 연동 검토·적용</li>
+            <li>사용자 매뉴얼 작성 및 현업 사용자 교육</li>
+            <li>도입 후 시스템 운영·장애 대응 전담</li>
+          </ul>
+        </div>
+        <div>
+          <h4>핵심 성과</h4>
+          <ul>
+            <li>전사 대상 그룹웨어 안정적 도입 완료</li>
+            <li>인사 연동으로 수동 관리 업무 자동화 기반 마련</li>
+            <li>운영 체계 정립 및 사용자 응대 프로세스 구축</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack"><span>상용 그룹웨어</span><span>HR 연동</span><span>Notion</span><span>Jira</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <span class="label">Project <b>03</b> · IT Service Management</span>
+          <h3>ITSM 서비스 체계 정립</h3>
+        </div>
+        <span class="period">2025.03 — 2025.08</span>
+      </div>
+      <p class="summary">사내 IT 서비스 관리 체계(ITSM) 도입을 위해 서비스 목록과 분류 체계를 수립하고, 요청 처리 프로세스를 정의했습니다. 비체계적으로 접수되던 IT 요청을 분류 체계 기반으로 표준화해, 직원들이 IT 서비스를 체계적으로 요청하고 처리받는 구조를 만들었습니다.</p>
+      <div class="proj-cols">
+        <div>
+          <h4>담당 역할</h4>
+          <ul>
+            <li>IT 서비스 목록·분류 체계 정리</li>
+            <li>서비스 요청 유형 및 처리 프로세스 정의</li>
+            <li>서비스 카탈로그 구성 및 운영 기준 문서화</li>
+          </ul>
+        </div>
+        <div>
+          <h4>핵심 성과</h4>
+          <ul>
+            <li>비체계적 IT 요청을 분류 체계로 구조화</li>
+            <li>서비스 카탈로그 기반 Helpdesk 운영 기반 마련</li>
+            <li>요청 유형별 처리 흐름 표준화</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack"><span>상용 ITSM 솔루션</span><span>Notion</span><span>Figma</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <span class="label">Side Project · Full Cycle</span>
+          <h3>사고 관리 대시보드 시스템</h3>
+        </div>
+        <span class="side-badge">기획 → 설계 → 구현</span>
+      </div>
+      <p class="summary">엑셀로 관리되던 안전사고 관리 업무를 웹 기반 시스템으로 전환하는 사이드 프로젝트. 요구사항 명세서 작성부터 데이터 모델·권한 체계 설계, 단계별 구현 우선순위 수립까지 기획 전 과정을 수행하고, AI 코딩 도구를 활용해 직접 구현했습니다. ※ 본 페이지의 내용은 실제 데이터를 포함하지 않습니다.</p>
+      <div class="proj-cols">
+        <div>
+          <h4>기획·설계</h4>
+          <ul>
+            <li>요구사항 명세서 작성 및 화면 우선순위 정의</li>
+            <li>사고 유형·요인·심각도 분류 체계와 처리 상태 워크플로우 설계</li>
+            <li>역할 기반 권한 체계(RBAC 3단계) 설계</li>
+          </ul>
+        </div>
+        <div>
+          <h4>구현</h4>
+          <ul>
+            <li>React + TypeScript 기반 대시보드·목록·상세 화면</li>
+            <li>Java(Spring Boot) + PostgreSQL 백엔드, Flyway 마이그레이션</li>
+            <li>AI 코딩 도구 활용 — 요구사항 구조화가 곧 구현 품질임을 체감</li>
+          </ul>
+        </div>
+      </div>
+      <div class="learn"><b>배운 것.</b> 발주자와 구현자의 시각을 오가며, 요구사항을 개발 가능한 수준까지 구조화하는 일이 시스템의 품질을 결정한다는 것.</div>
+      <div class="stack"><span>React</span><span>TypeScript</span><span>Spring Boot</span><span>PostgreSQL</span><span>Docker</span></div>
+    </article>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><h2>역량</h2><div class="rule"></div></div>
+    <div class="skill-grid">
+      <div class="skill"><h4>기획 · 분석</h4><ul><li>요구사항 분석·정의서 작성</li><li>업무 프로세스 설계 (AS-IS/TO-BE)</li><li>화면 설계·와이어프레임</li><li>테스트 시나리오 작성</li></ul></div>
+      <div class="skill"><h4>기술 이해</h4><ul><li>REST API 연동 구조</li><li>DB 구조 이해 · SQL 기초</li><li>ERP 인터페이스 데이터 흐름</li><li>Java(Spring Boot) 구축 경험</li></ul></div>
+      <div class="skill"><h4>협업 · 운영</h4><ul><li>현업·개발사 커뮤니케이션 주도</li><li>일정 조율·이슈 트래킹</li><li>사용자 교육·매뉴얼 제작</li><li>운영 지원·장애 대응</li></ul></div>
+      <div class="skill"><h4>도구</h4><ul><li>Figma (플로우차트·UI)</li><li>Jira (이슈·스프린트)</li><li>Notion (문서화·요구사항)</li><li>Slack · Office 365</li></ul></div>
+    </div>
+  </section>
+
+  <section id="edu">
+    <div class="sec-head"><h2>교육 · 활동</h2><div class="rule"></div></div>
+    <div class="edu-list">
+      <div class="edu"><span class="when">2024.02 — 2024.08</span><div><b>구름톤 풀스택 개발 과정 수료</b><p>React, TypeScript, Spring Boot, JPA, Docker, AWS 기반 풀스택 웹 개발 (카카오 × 구름 기업연계 프로젝트 수행)</p></div></div>
+      <div class="edu"><span class="when">2018.03 — 2024.02</span><div><b>명지전문대학 컴퓨터공학과 학사</b><p>전문학사 과정 후 전공심화 과정 이수 (심화과정 4.25 / 4.5)</p></div></div>
+      <div class="edu"><span class="when">2022.08</span><div><b>교내 SW 경진대회 최우수상</b><p>공공데이터 오픈 API를 활용한 병원 정보 제공 게임 (C#, Unity)</p></div></div>
+      <div class="edu"><span class="when">2022 — 2024</span><div><b>컴퓨터공학과 학생회 기획부장 · 과대표</b><p>학과 행사 기획 운영, 하계 학술대회 논문 투고</p></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="label" style="color:#8e9ac4">Contact</span>
+        <h2>읽어주셔서 감사합니다.</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+        <a href="mailto:siksik2782259@gmail.com">siksik2782259@gmail.com</a>
+        <a href="https://github.com/sunnyy97" target="_blank" rel="noopener">github.com/sunnyy97</a>
+      </div>
+    </div>
+    <p class="fine">© 2026 Lee Seonhui · 본 포트폴리오는 재직 회사의 영업비밀 및 내부 데이터를 포함하지 않으며, 프로젝트는 담당 역할과 프로세스 중심으로 서술되었습니다.</p>
+  </div>
+</footer>
+
+</body>
+</html>
