@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이선희 — IT 기획 · 시스템 운영 포트폴리오</title>
+<meta name="description" content="현장 시스템의 고도화와 운영을 담당하는 IT 기획자 이선희의 포트폴리오">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#0a0e17; --surface:#101624; --panel:#131b2c; --panel2:#0e1522; --side:#080c14;
+  --line:#223052; --line-soft:#1a2438;
+  --text:#dbe4f5; --muted:#8d9bb8; --dim:#566484;
+  --accent:#5b8cff; --accent-soft:rgba(91,140,255,.12);
+  --ok:#2dd4a7; --warn:#f5a524; --alert:#fb7185;
+  --sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+  --sw:270px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit}
+
+/* ---------- sidebar ---------- */
+.sidebar{position:fixed;top:0;left:0;width:var(--sw);height:100vh;background:var(--side);border-right:1px solid var(--line-soft);padding:26px 20px;overflow-y:auto;z-index:20;display:flex;flex-direction:column;gap:26px}
+.sb-brand{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;letter-spacing:.04em;color:#fff}
+.sb-brand small{display:block;font-weight:400;font-size:11px;color:var(--dim);letter-spacing:.1em}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none;box-shadow:0 0 0 0 rgba(45,212,167,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,212,167,.45)}70%{box-shadow:0 0 0 7px rgba(45,212,167,0)}100%{box-shadow:0 0 0 0 rgba(45,212,167,0)}}
+.sb-label{font-size:10.5px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;padding-bottom:9px;border-bottom:1px solid var(--line-soft);margin-bottom:12px}
+
+/* tree */
+.tree{font-size:13px;line-height:2.05}
+.tree .root{color:var(--muted);font-size:12.5px;margin-bottom:2px}
+.tree a{display:flex;align-items:center;gap:6px;color:var(--muted);padding:1px 6px;border-radius:5px;transition:background .18s,color .18s;white-space:nowrap}
+.tree a:hover{background:var(--panel);color:var(--text)}
+.tree a.active{color:#fff;background:var(--accent-soft);box-shadow:inset 2px 0 0 var(--accent)}
+.tree .g{color:var(--dim);flex:none;font-size:12px}
+.tree .sub{padding-left:12px}
+.tree .sub a{font-size:12.5px;color:var(--dim)}
+.tree .sub a:hover{color:var(--muted)}
+.tree .sub a.active{color:#fff}
+.badge{margin-left:auto;font-size:9.5px;letter-spacing:.06em;padding:1px 6px;border-radius:99px;flex:none}
+.badge.live{color:var(--ok);border:1px solid rgba(45,212,167,.35)}
+.badge.done{color:var(--dim);border:1px solid var(--line)}
+.badge.side{color:var(--accent);border:1px solid rgba(91,140,255,.35)}
+.sb-status{margin-top:auto;font-size:11.5px;color:var(--dim);line-height:1.9}
+.sb-status .row{display:flex;justify-content:space-between}
+.sb-status b{color:var(--ok);font-weight:600}
+
+/* mobile bar */
+.mbar{display:none;position:sticky;top:0;z-index:30;background:rgba(8,12,20,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);padding:12px 18px;align-items:center;justify-content:space-between}
+.mbar .t{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff}
+.mbar button{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:6px}
+
+/* ---------- content ---------- */
+.content{margin-left:var(--sw);position:relative}
+.content::before{content:"";position:fixed;top:0;left:var(--sw);right:0;bottom:0;background:
+  radial-gradient(800px 460px at 75% -8%, rgba(91,140,255,.09), transparent 60%),
+  radial-gradient(600px 380px at 5% 40%, rgba(45,212,167,.045), transparent 60%);
+  pointer-events:none;z-index:0}
+.inner{max-width:820px;margin:0 auto;padding:0 40px;position:relative;z-index:1}
+#progress{position:fixed;top:0;left:var(--sw);right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--ok));width:0;z-index:25;transition:width .1s linear}
+
+/* hero */
+.hero{padding:78px 0 20px}
+.statusline{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:9px;margin-bottom:24px;letter-spacing:.06em}
+.statusline .ok{color:var(--ok);font-weight:600}
+.hero h1{font-size:clamp(30px,4.4vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.24;color:#fff}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{font-size:16px;color:var(--muted);max-width:620px;margin-top:18px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}
+.tags span{font-size:11.5px;letter-spacing:.04em;border:1px solid var(--line);background:var(--panel2);padding:5px 11px;border-radius:5px;color:var(--muted);transition:all .2s}
+.tags span:hover{border-color:var(--accent);color:var(--accent)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;margin-top:42px}
+.metric{background:var(--panel);padding:18px 20px;position:relative}
+.metric b{display:block;font-size:24px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.metric span{font-size:11.5px;color:var(--dim)}
+.metric::after{content:"";position:absolute;top:18px;right:18px;width:5px;height:5px;border-radius:50%;background:var(--ok)}
+
+/* pipeline */
+.rail{margin-top:42px;border:1px solid var(--line-soft);background:var(--surface);border-radius:12px;padding:24px 26px}
+.rail .cap{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:18px}
+.rail-flow{display:flex;flex-wrap:wrap}
+.rail-step{flex:1;min-width:132px;padding:2px 16px 2px 0;transition:transform .25s}
+.rail-step + .rail-step{padding-left:16px;border-left:1px dashed var(--line)}
+.rail-step:hover{transform:translateY(-3px)}
+.rail-step .num{font-size:10px;color:var(--accent);letter-spacing:.1em}
+.rail-step .name{font-weight:700;font-size:14.5px;color:#fff;margin:2px 0}
+.rail-step .desc{font-size:12.5px;color:var(--muted);line-height:1.6}
+.rail-note{margin-top:18px;padding-top:15px;border-top:1px solid var(--line-soft);font-size:13px;color:var(--muted)}
+.rail-note strong{color:var(--text);font-weight:600}
+
+/* sections */
+section{padding:72px 0 4px;scroll-margin-top:24px}
+.sec-head{display:flex;align-items:center;gap:13px;margin-bottom:30px}
+.sec-head .mod{font-size:10.5px;color:var(--accent);letter-spacing:.14em;border:1px solid rgba(91,140,255,.35);background:var(--accent-soft);padding:4px 9px;border-radius:4px;font-weight:600}
+.sec-head h2{font-size:22px;font-weight:800;letter-spacing:-.01em;color:#fff}
+.sec-head .rule{flex:1;height:1px;background:var(--line-soft)}
+.about p{color:var(--muted);margin-bottom:14px}
+.about strong{color:var(--text);font-weight:600}
+
+/* filter tabs */
+.filters{display:flex;gap:7px;margin-bottom:22px;flex-wrap:wrap}
+.filters button{font-size:12px;letter-spacing:.05em;padding:6px 14px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:var(--panel2);transition:all .2s}
+.filters button:hover{color:var(--text);border-color:var(--accent)}
+.filters button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:#cfe0ff;font-weight:600}
+.pcount{font-size:11.5px;color:var(--dim);align-self:center;margin-left:auto}
+
+/* project panels */
+.proj{border:1px solid var(--line-soft);background:var(--surface);border-radius:14px;margin-bottom:24px;overflow:hidden;scroll-margin-top:24px;transition:transform .3s,border-color .3s,box-shadow .3s,opacity .3s}
+.proj:hover{transform:translateY(-3px);border-color:var(--line);box-shadow:0 18px 46px rgba(0,0,0,.42)}
+.proj[hidden]{display:none}
+.proj-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 22px;background:var(--panel2);border-bottom:1px solid var(--line-soft)}
+.proj-bar .pid{font-size:11px;color:var(--dim);letter-spacing:.1em}
+.chip{font-size:10.5px;letter-spacing:.08em;padding:3px 10px;border-radius:99px;font-weight:600;flex:none}
+.chip.live{color:var(--ok);border:1px solid rgba(45,212,167,.4);background:rgba(45,212,167,.08)}
+.chip.done{color:var(--muted);border:1px solid var(--line);background:var(--panel)}
+.chip.side{color:var(--accent);border:1px solid rgba(91,140,255,.4);background:var(--accent-soft)}
+.proj-body{padding:26px 28px 28px}
+.proj h3{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.proj .period{font-size:11.5px;color:var(--dim);margin-top:3px;letter-spacing:.04em}
+.proj .summary{color:var(--muted);margin:15px 0 6px;font-size:15px}
+.proj .summary strong{color:var(--text);font-weight:600}
+
+/* case tabs */
+.case-tabs{display:flex;gap:4px;margin-top:24px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.case-tabs button{font-size:12px;padding:9px 14px;color:var(--dim);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;letter-spacing:.03em}
+.case-tabs button:hover{color:var(--text)}
+.case-tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--accent);font-weight:600}
+.case-tabs .n{color:var(--accent);font-size:10.5px;margin-right:5px;letter-spacing:.1em}
+.case-panel{padding-top:22px}
+.case-panel[hidden]{display:none}
+.case-panel h4{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:8px}
+.case-panel p{font-size:14px;color:var(--muted);margin-bottom:16px}
+.fig{background:var(--panel2);border:1px solid var(--line-soft);border-radius:10px;padding:20px;margin:6px 0}
+.fig svg{width:100%;height:auto;display:block}
+.fig-cap{font-size:11px;color:var(--dim);margin-top:10px;text-align:center;letter-spacing:.03em}
+
+/* interactive diagram */
+.stepper{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.stepper button{font-size:11.5px;padding:6px 13px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--panel);transition:all .2s}
+.stepper button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.stepper .st{font-size:11.5px;color:var(--dim);letter-spacing:.05em}
+.trace-node{opacity:.28;transition:opacity .45s ease}
+.trace-node.on{opacity:1}
+.trace-link{opacity:.2;transition:opacity .45s ease}
+.trace-link.on{opacity:1}
+.trace-desc{margin-top:14px;background:var(--panel2);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13.5px;color:var(--muted);min-height:44px}
+.trace-desc b{color:#cfe0ff;font-weight:600}
+
+.shot{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0;background:var(--panel2);transition:transform .3s,box-shadow .3s}
+.shot:hover{transform:scale(1.008);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.shot .bar{display:flex;align-items:center;gap:7px;padding:8px 13px;border-bottom:1px solid var(--line-soft);font-size:10.5px;color:var(--dim);letter-spacing:.08em}
+.shot .bar i{width:7px;height:7px;border-radius:50%;background:var(--line);display:inline-block}
+.shot img{width:100%;display:block}
+.learn{margin-top:20px;background:var(--panel2);border-left:3px solid var(--ok);padding:12px 17px;font-size:13.5px;color:var(--muted);border-radius:0 8px 8px 0}
+.learn b{color:var(--ok);font-weight:600;letter-spacing:.06em}
+.stack{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.stack span{font-size:11px;background:var(--panel2);border:1px solid var(--line-soft);padding:4px 10px;border-radius:4px;color:var(--dim);transition:all .2s}
+.stack span:hover{color:var(--accent);border-color:var(--accent)}
+.mini-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:16px}
+.mini-cols h4{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;font-weight:600}
+.mini-cols ul{list-style:none}
+.mini-cols li{font-size:13.5px;color:var(--muted);padding:6px 0 6px 15px;position:relative;border-bottom:1px solid var(--line-soft);line-height:1.6}
+.mini-cols li::before{content:"";position:absolute;left:0;top:14px;width:5px;height:5px;border-radius:1px;background:var(--accent)}
+.mini-cols li:last-child{border-bottom:none}
+
+/* skills */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.skill{background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:20px 22px;transition:transform .3s,border-color .3s}
+.skill:hover{transform:translateY(-3px);border-color:var(--line)}
+.skill h4{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--line);letter-spacing:.1em}
+.skill ul{list-style:none}
+.skill li{font-size:13px;color:var(--muted);padding:5px 0;line-height:1.55}
+
+/* footer */
+footer{margin-top:78px;border-top:1px solid var(--line-soft);background:var(--panel2);padding:52px 0;position:relative;z-index:1}
+footer h2{color:#fff;font-size:26px;font-weight:800;letter-spacing:-.01em}
+.foot-grid{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:flex-end}
+footer .lab{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+footer a{color:var(--text);font-size:13.5px;border-bottom:1px solid var(--line);transition:all .2s}
+footer a:hover{border-bottom-color:var(--accent);color:var(--accent)}
+footer .fine{font-size:11.5px;color:var(--dim);margin-top:28px;line-height:1.7}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}
+
+@media (max-width:1000px){
+  :root{--sw:0px}
+  .sidebar{transform:translateX(-100%);width:280px;transition:transform .3s ease}
+  .sidebar.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.6)}
+  .mbar{display:flex}
+  .content{margin-left:0}
+  .content::before{left:0}
+  #progress{left:0}
+  .inner{padding:0 22px}
+  .metrics{grid-template-columns:1fr 1fr}
+  .mini-cols{grid-template-columns:1fr}
+  .proj-body{padding:22px 18px 24px}
+  .rail-step{min-width:46%}
+  .rail-step:nth-child(3){border-left:none;padding-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  #progress{display:none}
+}
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+
+<nav class="sidebar" id="sidebar" aria-label="사이트 내비게이션">
+  <div class="sb-brand"><span class="dot" aria-hidden="true"></span><span>LEE_SEONHUI<small>portfolio.sys</small></span></div>
+
+  <div>
+    <div class="sb-label">Navigation</div>
+    <div class="tree">
+      <div class="root">~/portfolio</div>
+      <a href="#about" data-nav="about"><span class="g">├─</span>00_summary/</a>
+      <a href="#projects" data-nav="projects"><span class="g">├─</span>01_projects/</a>
+      <div class="sub">
+        <a href="#p-svc" data-nav="p-svc"><span class="g">├─</span>svc-system<span class="badge live">live</span></a>
+        <a href="#p-side" data-nav="p-side"><span class="g">├─</span>incident-dash<span class="badge side">side</span></a>
+        <a href="#p-gw" data-nav="p-gw"><span class="g">├─</span>groupware<span class="badge live">live</span></a>
+        <a href="#p-itsm" data-nav="p-itsm"><span class="g">└─</span>itsm<span class="badge done">done</span></a>
+      </div>
+      <a href="#skills" data-nav="skills"><span class="g">├─</span>02_skills/</a>
+      <a href="#contact" data-nav="contact"><span class="g">└─</span>03_contact/</a>
+    </div>
+  </div>
+
+  <div class="sb-status">
+    <div class="sb-label">Status</div>
+    <div class="row"><span>SYSTEMS</span><b>3 OPERATIONAL</b></div>
+    <div class="row"><span>UPTIME</span><span>1Y 4M</span></div>
+    <div class="row"><span>ROLE</span><span>IT PLANNER</span></div>
+  </div>
+</nav>
+
+<div class="mbar">
+  <span class="t"><span class="dot" aria-hidden="true"></span>LEE_SEONHUI</span>
+  <button id="mtoggle" aria-expanded="false" aria-controls="sidebar">MENU</button>
+</div>
+
+<div class="content">
+<main class="inner">
+
+  <div class="hero">
+    <p class="statusline"><span class="dot" aria-hidden="true"></span><span class="ok">OPERATIONAL</span> · IT PLANNING · SYSTEM OPERATION · 2026</p>
+    <h1>현장에서 시스템의 답을 찾는<br><em>IT 기획자, 이선희</em>입니다</h1>
+    <p class="sub">반도체 장비 제조사 DX팀에서 현장 서비스 시스템의 고도화와 운영을 담당하고 있습니다. 데이터가 만들어지는 현장의 조건을 이해하고, 시스템 간 데이터 흐름을 추적해 문제를 해결합니다.</p>
+    <div class="tags"><span>요구사항 분석</span><span>프로세스 설계</span><span>화면 설계</span><span>SAP 연계</span><span>시스템 운영</span><span>ITSM</span></div>
+
+    <div class="metrics">
+      <div class="metric"><b>3+</b><span>수행 프로젝트</span></div>
+      <div class="metric"><b>1년+</b><span>IT 기획·운영 실무</span></div>
+      <div class="metric"><b>PI</b><span>프로세스 통합 수행</span></div>
+      <div class="metric"><b>전사</b><span>시스템 도입·운영</span></div>
+    </div>
+
+    <div class="rail">
+      <span class="cap">System Pipeline — 제가 다루는 시스템의 공통 구조</span>
+      <div class="rail-flow">
+        <div class="rail-step"><span class="num">01 INTAKE</span><div class="name">접수</div><p class="desc">현장 이벤트와 요청을 유형 체계로 받아들이고</p></div>
+        <div class="rail-step"><span class="num">02 EXECUTE</span><div class="name">실행</div><p class="desc">배정과 조치가 현장에서 이루어지게 하고</p></div>
+        <div class="rail-step"><span class="num">03 RECORD</span><div class="name">기록</div><p class="desc">실적과 이력을 정확한 기준으로 남기고</p></div>
+        <div class="rail-step"><span class="num">04 ANALYZE</span><div class="name">분석</div><p class="desc">쌓인 데이터로 유형을 분석해 개선으로 잇습니다</p></div>
+      </div>
+      <p class="rail-note"><strong>이 사이클의 품질은 화면이 아니라, 데이터가 만들어지는 현장의 조건에서 결정됩니다.</strong> 저는 이 관점으로 시스템을 기획하고 운영합니다.</p>
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <div class="sec-head"><span class="mod">MOD.00</span><h2>소개</h2><div class="rule"></div></div>
+    <p>현업과 개발 사이에서 요구사항을 구체화하고 프로세스를 설계하는 IT 기획자입니다. 현장 서비스 시스템 고도화, 전사 그룹웨어 도입, ITSM 체계 정립 프로젝트에서 <strong>AS-IS 분석부터 TO-BE 설계, 화면 기획, 오픈 이후 운영까지</strong> 수행했습니다.</p>
+    <p>시스템을 운영하며 배운 것은, 현장의 데이터 품질 문제는 대부분 사용자가 아니라 <strong>입력 구조와 데이터 기준</strong>에서 비롯된다는 점입니다. 문제를 화면에 보이는 증상이 아닌 데이터가 생성되고 전달되는 기준의 관점에서 추적하고, 이해관계자들이 같은 기준으로 판단할 수 있도록 구조화하는 일에 강점이 있습니다.</p>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="mod">MOD.01</span><h2>프로젝트</h2><div class="rule"></div></div>
+
+    <div class="filters" role="group" aria-label="프로젝트 상태 필터">
+      <button data-f="all" aria-pressed="true">ALL</button>
+      <button data-f="live" aria-pressed="false">● 운영 중</button>
+      <button data-f="side" aria-pressed="false">◆ 사이드</button>
+      <button data-f="done" aria-pressed="false">✓ 완료</button>
+      <span class="pcount" id="pcount">4 / 4</span>
+    </div>
+
+    <!-- SVC -->
+    <article class="proj" id="p-svc" data-status="live">
+      <div class="proj-bar"><span class="pid">SVC.SYSTEM — FIELD SERVICE PLATFORM</span><span class="chip live">● 운영 중</span></div>
+      <div class="proj-body">
+        <h3>현장 서비스(SVC) 시스템 고도화</h3>
+        <p class="period">2025.03 — 현재</p>
+        <p class="summary">고객사 생산 현장에 설치된 장비의 CS 업무를 관리하는 통합 서비스 플랫폼의 고도화 프로젝트. <strong>600명 이상의 현장 엔지니어</strong>가 사용하는 시스템에서 <strong>약 180건의 기능 요구사항을 7개 업무 영역으로 구조화</strong>했으며, AS-IS 분석부터 TO-BE 설계, 화면 기획, 현업·개발사 간 조율까지 기획 전반을 담당했습니다. 오픈 이후에는 <strong>100여 건의 VOC·이슈 대응</strong>을 통해 안정화를 수행하고 있습니다.</p>
+
+        <div class="case-tabs" role="tablist" aria-label="SVC 케이스 스터디">
+          <button role="tab" aria-selected="true" aria-controls="c1" id="t1"><span class="n">CASE 01</span>프로세스 통합 (PI)</button>
+          <button role="tab" aria-selected="false" aria-controls="c2" id="t2"><span class="n">CASE 02</span>데이터 정합성 추적</button>
+          <button role="tab" aria-selected="false" aria-controls="c3" id="t3"><span class="n">CASE 03</span>현장 입력 환경</button>
+        </div>
+
+        <div class="case-panel" id="c1" role="tabpanel" aria-labelledby="t1">
+          <h4>분리 운영되던 두 프로세스를 하나로 — 시스템 PI</h4>
+          <p>같은 성격의 서비스 업무가 두 개의 프로세스로 분리 접수·관리되어 중복 업무와 이력 분산이 발생했습니다. AS-IS 프로세스를 분석해 공통 단계를 식별하고, 조건에 따른 분기는 유형 체계로 흡수해 단일 접수·분류 체계로 통합하는 TO-BE 프로세스를 설계했습니다.</p>
+          <div class="fig">
+            <svg viewBox="0 0 820 235" role="img" aria-label="AS-IS 두 개의 분리된 프로세스를 TO-BE 단일 프로세스로 통합한 다이어그램">
+              <text x="20" y="26" font-size="11.5" fill="#566484" letter-spacing="2">AS-IS</text>
+              <g font-size="12.5" font-weight="600">
+                <rect x="20" y="42" width="90" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="65" y="63" text-anchor="middle" fill="#8d9bb8">접수 A</text>
+                <rect x="130" y="42" width="90" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="175" y="63" text-anchor="middle" fill="#8d9bb8">배정 A</text>
+                <rect x="240" y="42" width="95" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="287" y="63" text-anchor="middle" fill="#8d9bb8">처리·이력 A</text>
+                <rect x="20" y="92" width="90" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="65" y="113" text-anchor="middle" fill="#8d9bb8">접수 B</text>
+                <rect x="130" y="92" width="90" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="175" y="113" text-anchor="middle" fill="#8d9bb8">배정 B</text>
+                <rect x="240" y="92" width="95" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="287" y="113" text-anchor="middle" fill="#8d9bb8">처리·이력 B</text>
+              </g>
+              <g stroke="#3a4a6e" stroke-width="1.5">
+                <line x1="110" y1="59" x2="128" y2="59"/><line x1="220" y1="59" x2="238" y2="59"/>
+                <line x1="110" y1="109" x2="128" y2="109"/><line x1="220" y1="109" x2="238" y2="109"/>
+              </g>
+              <text x="178" y="152" text-anchor="middle" font-size="11.5" fill="#fb7185">중복 업무 · 이력 분산 · 기준 불일치</text>
+              <path d="M360 85 L405 85" stroke="#5b8cff" stroke-width="2"/>
+              <path d="M399 79 L407 85 L399 91" fill="none" stroke="#5b8cff" stroke-width="2"/>
+              <text x="383" y="73" text-anchor="middle" font-size="10.5" fill="#5b8cff" letter-spacing="1">PI</text>
+              <text x="430" y="26" font-size="11.5" fill="#5b8cff" letter-spacing="2">TO-BE</text>
+              <g font-size="12.5" font-weight="600">
+                <rect x="430" y="67" width="112" height="36" rx="6" fill="rgba(91,140,255,.12)" stroke="#5b8cff"/><text x="486" y="89" text-anchor="middle" fill="#cfe0ff">단일 접수·분류</text>
+                <rect x="562" y="67" width="80" height="36" rx="6" fill="rgba(91,140,255,.12)" stroke="#5b8cff"/><text x="602" y="89" text-anchor="middle" fill="#cfe0ff">배정</text>
+                <rect x="662" y="67" width="130" height="36" rx="6" fill="rgba(91,140,255,.12)" stroke="#5b8cff"/><text x="727" y="89" text-anchor="middle" fill="#cfe0ff">처리·통합 이력</text>
+              </g>
+              <g stroke="#5b8cff" stroke-width="1.5"><line x1="542" y1="85" x2="560" y2="85"/><line x1="642" y1="85" x2="660" y2="85"/></g>
+              <text x="610" y="133" text-anchor="middle" font-size="11.5" fill="#8d9bb8">조건 분기를 유형 체계로 흡수 · 단일 플로우 · 통합 이력 조회</text>
+              <text x="410" y="205" text-anchor="middle" font-size="11.5" fill="#566484">산출물 — 프로세스 플로우차트 · 화면 설계서 · 요구사항 정의서 · AS-IS/TO-BE 문서</text>
+            </svg>
+            <p class="fig-cap">두 프로세스의 공통 단계를 식별해 단일 플로우로 통합 (개념 재구성)</p>
+          </div>
+        </div>
+
+        <div class="case-panel" id="c2" role="tabpanel" aria-labelledby="t2" hidden>
+          <h4>SAP 연계 실적 데이터 정합성 이슈 추적</h4>
+          <p>엔지니어의 작업(설치·유지보수 등)은 실적으로, 사용 자재는 자재실적으로 기록되어 SAP로 인터페이스됩니다. 시스템 전환 과정에서 DB 변경에 따라 인터페이스가 DB 직결에서 REST API 방식으로 전환된 환경이며, 운영 중 기준값 불일치로 정합성이 어긋나는 문제가 발생했습니다. 화면의 증상이 아니라 데이터의 생성·전달 경로를 단계별로 추적해 원인을 구조화했습니다.</p>
+          <div class="fig">
+            <svg viewBox="0 0 820 110" role="img" aria-label="정합성 이슈를 증상에서 원인까지 추적한 과정">
+              <g id="tn0" class="trace-node on"><rect x="12" y="26" width="130" height="52" rx="7" fill="#131b2c" stroke="#fb7185"/><text x="77" y="48" text-anchor="middle" font-size="12.5" font-weight="600" fill="#fb7185">증상</text><text x="77" y="66" text-anchor="middle" font-size="11" fill="#8d9bb8">실적 불일치 발생</text></g>
+              <line class="trace-link" id="tl1" x1="142" y1="52" x2="170" y2="52" stroke="#566484" stroke-width="1.5"/>
+              <g id="tn1" class="trace-node"><rect x="172" y="26" width="140" height="52" rx="7" fill="#131b2c" stroke="#3a4a6e"/><text x="242" y="48" text-anchor="middle" font-size="12.5" font-weight="600" fill="#dbe4f5">업무 흐름 확인</text><text x="242" y="66" text-anchor="middle" font-size="11" fill="#8d9bb8">입력 시점·경로</text></g>
+              <line class="trace-link" id="tl2" x1="312" y1="52" x2="340" y2="52" stroke="#566484" stroke-width="1.5"/>
+              <g id="tn2" class="trace-node"><rect x="342" y="26" width="140" height="52" rx="7" fill="#131b2c" stroke="#3a4a6e"/><text x="412" y="48" text-anchor="middle" font-size="12.5" font-weight="600" fill="#dbe4f5">채번 기준 확인</text><text x="412" y="66" text-anchor="middle" font-size="11" fill="#8d9bb8">시스템 간 기준값</text></g>
+              <line class="trace-link" id="tl3" x1="482" y1="52" x2="510" y2="52" stroke="#566484" stroke-width="1.5"/>
+              <g id="tn3" class="trace-node"><rect x="512" y="26" width="140" height="52" rx="7" fill="#131b2c" stroke="#3a4a6e"/><text x="582" y="48" text-anchor="middle" font-size="12.5" font-weight="600" fill="#dbe4f5">I/F 구조 분석</text><text x="582" y="66" text-anchor="middle" font-size="11" fill="#8d9bb8">인터페이스 데이터</text></g>
+              <line class="trace-link" id="tl4" x1="652" y1="52" x2="680" y2="52" stroke="#566484" stroke-width="1.5"/>
+              <g id="tn4" class="trace-node"><rect x="682" y="26" width="126" height="52" rx="7" fill="rgba(91,140,255,.12)" stroke="#5b8cff"/><text x="745" y="48" text-anchor="middle" font-size="12.5" font-weight="600" fill="#cfe0ff">원인·조치 정리</text><text x="745" y="66" text-anchor="middle" font-size="11" fill="#8d9bb8">영향 범위 포함</text></g>
+            </svg>
+            <div class="stepper">
+              <button id="tprev" disabled>← 이전</button>
+              <button id="tnext">다음 단계 →</button>
+              <span class="st" id="tstat">STEP 1 / 5</span>
+            </div>
+            <div class="trace-desc" id="tdesc"><b>증상 —</b> 현업으로부터 실적 데이터가 맞지 않는다는 이슈가 접수되었습니다. 화면 오류로 접수 처리하지 않고, 데이터가 어디서 어긋나는지부터 추적하기로 했습니다.</div>
+          </div>
+        </div>
+
+        <div class="case-panel" id="c3" role="tabpanel" aria-labelledby="t3" hidden>
+          <h4>현장 입력 환경의 재설계 — 태블릿 실적 등록</h4>
+          <p>기존 시스템에는 태블릿 실적 등록·작업 리포트 기능이 없어, 엔지니어가 작업 후 사무 공간으로 나와 기억에 의존해 입력해야 했고 데이터의 시차와 누락이 반복되었습니다. 이를 사용자 개인의 문제가 아닌 <strong style="color:var(--text)">입력 구조의 문제</strong>로 정의하고, 신규 시스템에 태블릿 현장 입력 기능을 요구사항으로 반영했습니다. 통신 가능한 라인에서는 작업 직후 입력이 가능해졌으며, 기기 반입이 제한되는 구역은 제약으로 남아 물리적 환경까지 포함한 설계의 중요성을 배웠습니다.</p>
+          <div class="fig">
+            <svg viewBox="0 0 820 130" role="img" aria-label="현장 입력 환경 개선 전후 비교">
+              <text x="20" y="24" font-size="11.5" fill="#566484" letter-spacing="2">BEFORE</text>
+              <g font-size="12" font-weight="600">
+                <rect x="20" y="38" width="112" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="76" y="59" text-anchor="middle" fill="#8d9bb8">현장 작업</text>
+                <rect x="152" y="38" width="132" height="34" rx="6" fill="#131b2c" stroke="#fb7185"/><text x="218" y="59" text-anchor="middle" fill="#fb7185">사무 공간 이동</text>
+                <rect x="304" y="38" width="132" height="34" rx="6" fill="#131b2c" stroke="#fb7185"/><text x="370" y="59" text-anchor="middle" fill="#fb7185">기억 의존 입력</text>
+              </g>
+              <g stroke="#3a4a6e" stroke-width="1.5"><line x1="132" y1="55" x2="150" y2="55"/><line x1="284" y1="55" x2="302" y2="55"/></g>
+              <text x="228" y="96" text-anchor="middle" font-size="11.5" fill="#fb7185">데이터 시차 · 누락 반복</text>
+              <text x="500" y="24" font-size="11.5" fill="#5b8cff" letter-spacing="2">AFTER</text>
+              <g font-size="12" font-weight="600">
+                <rect x="500" y="38" width="112" height="34" rx="6" fill="#131b2c" stroke="#3a4a6e"/><text x="556" y="59" text-anchor="middle" fill="#8d9bb8">현장 작업</text>
+                <rect x="632" y="38" width="176" height="34" rx="6" fill="rgba(45,212,167,.1)" stroke="#2dd4a7"/><text x="720" y="59" text-anchor="middle" fill="#2dd4a7">태블릿 현장 즉시 입력</text>
+              </g>
+              <line x1="612" y1="55" x2="630" y2="55" stroke="#3a4a6e" stroke-width="1.5"/>
+              <text x="654" y="96" text-anchor="middle" font-size="11.5" fill="#8d9bb8">통신 가능 라인 한정 · 반입 제한 구역은 제약 잔존</text>
+            </svg>
+            <p class="fig-cap">입력 구조 재설계 전후 (개념 재구성)</p>
+          </div>
+        </div>
+
+        <div class="learn"><b>[LEARNED]</b> 시스템 간 연계 이슈는 화면의 증상이 아니라 데이터가 생성되고 전달되는 기준을 추적해야 풀리고, 시스템 개선은 현장의 물리적 제약까지 포함해 설계해야 한다는 것.</div>
+        <div class="stack"><span>Figma</span><span>Jira</span><span>Notion</span><span>SAP I/F (REST API)</span></div>
+      </div>
+    </article>
+
+    <!-- SIDE -->
+    <article class="proj" id="p-side" data-status="side">
+      <div class="proj-bar"><span class="pid">SIDE.PROJECT — FULL CYCLE BUILD</span><span class="chip side">◆ 기획→설계→구현</span></div>
+      <div class="proj-body">
+        <h3>사고 관리 대시보드 시스템</h3>
+        <p class="summary">엑셀로 관리되던 안전사고 관리 업무를 웹 기반 시스템으로 전환하는 사이드 프로젝트. 요구사항 명세서 작성부터 데이터 모델·권한 체계 설계, 단계별 구현 우선순위 수립까지 기획 전 과정을 수행하고, AI 코딩 도구를 활용해 직접 구현했습니다.</p>
+
+        <div class="case-tabs" role="tablist" aria-label="사이드 프로젝트">
+          <button role="tab" aria-selected="true" aria-controls="s1" id="st1"><span class="n">DESIGN</span>워크플로우 &amp; 권한 설계</button>
+          <button role="tab" aria-selected="false" aria-controls="s2" id="st2"><span class="n">RESULT</span>구현 화면</button>
+        </div>
+
+        <div class="case-panel" id="s1" role="tabpanel" aria-labelledby="st1">
+          <h4>분류 체계와 처리 상태 워크플로우 설계</h4>
+          <p>사고 데이터가 등록부터 종결까지 일관된 기준으로 관리되도록 상태 워크플로우를 정의하고, 사고 유형·요인·심각도 분류 체계와 역할 기반 권한(RBAC)을 설계했습니다.</p>
+          <div class="fig">
+            <svg viewBox="0 0 820 160" role="img" aria-label="사고 처리 상태 워크플로우와 권한 체계">
+              <g font-size="12" font-weight="600">
+                <rect x="30" y="26" width="150" height="38" rx="19" fill="#131b2c" stroke="#fb7185"/><text x="105" y="50" text-anchor="middle" fill="#fb7185">REPORTED</text>
+                <rect x="220" y="26" width="170" height="38" rx="19" fill="#131b2c" stroke="#f5a524"/><text x="305" y="50" text-anchor="middle" fill="#f5a524">INVESTIGATING</text>
+                <rect x="430" y="26" width="150" height="38" rx="19" fill="#131b2c" stroke="#2dd4a7"/><text x="505" y="50" text-anchor="middle" fill="#2dd4a7">RESOLVED</text>
+                <rect x="620" y="26" width="130" height="38" rx="19" fill="rgba(91,140,255,.12)" stroke="#5b8cff"/><text x="685" y="50" text-anchor="middle" fill="#cfe0ff">CLOSED</text>
+              </g>
+              <g stroke="#566484" stroke-width="1.5"><line x1="180" y1="45" x2="218" y2="45"/><line x1="390" y1="45" x2="428" y2="45"/><line x1="580" y1="45" x2="618" y2="45"/></g>
+              <g font-size="12">
+                <text x="30" y="103" fill="#dbe4f5" font-weight="700">RBAC</text>
+                <text x="85" y="103" fill="#8d9bb8">USER 조회</text>
+                <text x="172" y="103" fill="#566484">›</text>
+                <text x="190" y="103" fill="#8d9bb8">MANAGER 등록·수정·업로드</text>
+                <text x="398" y="103" fill="#566484">›</text>
+                <text x="416" y="103" fill="#8d9bb8">ADMIN 사용자 관리·삭제·감사 로그</text>
+              </g>
+              <text x="30" y="136" font-size="11.5" fill="#566484">분류 체계 — 사고 세부 유형 · 요인(인적/기계·설비) · 발생 원인(내부/외부) · 심각도 4단계</text>
+            </svg>
+            <p class="fig-cap">상태 전이 규칙과 3단계 권한 구조 (실제 설계)</p>
+          </div>
+        </div>
+
+        <div class="case-panel" id="s2" role="tabpanel" aria-labelledby="st2" hidden>
+          <h4>구현 화면</h4>
+          <p>React + TypeScript 프론트엔드와 Java(Spring Boot) + PostgreSQL 백엔드로 구현했습니다. 아래 화면은 목업 데이터 기반 데모이며, 실제 데이터를 포함하지 않습니다.</p>
+          <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;INCIDENT.DASHBOARD — DEMO (MOCK DATA)</div><img src="ehs-dashboard.png" alt="사고 관리 대시보드 — KPI 카드와 월별 사고 추이, 사업부별 비중 차트" loading="lazy"></div>
+          <p class="fig-cap">대시보드 — KPI · 월별 추이 · 유형 분석</p>
+          <div class="shot"><div class="bar"><i></i><i></i><i></i>&nbsp;INCIDENT.REGISTRY — DEMO (MOCK DATA)</div><img src="ehs-registry.png" alt="사고 저장소 — 검색·필터와 사고 목록 테이블" loading="lazy"></div>
+          <p class="fig-cap">사고 저장소 — 검색 · 다중 필터 · 상태/대책 관리</p>
+        </div>
+
+        <div class="learn"><b>[LEARNED]</b> 발주자와 구현자의 시각을 오가며, 요구사항을 개발 가능한 수준까지 구조화하는 일이 시스템의 품질을 결정한다는 것.</div>
+        <div class="stack"><span>React</span><span>TypeScript</span><span>Spring Boot</span><span>PostgreSQL</span><span>Docker</span></div>
+      </div>
+    </article>
+
+    <!-- GROUPWARE -->
+    <article class="proj" id="p-gw" data-status="live">
+      <div class="proj-bar"><span class="pid">GROUPWARE — ENTERPRISE ROLLOUT</span><span class="chip live">● 운영 중</span></div>
+      <div class="proj-body">
+        <h3>전사 그룹웨어 도입 및 운영</h3>
+        <p class="period">2025.03 — 2025.10 (운영 지속)</p>
+        <p class="summary">전사 그룹웨어 도입 프로젝트에서 기능 검토부터 사내 HR 시스템과의 사용자·조직 정보 연동, 도입 후 운영 안정화까지 참여했습니다. 도입 이후에는 운영을 담당하며 사용자 요청 대응과 개선사항 반영을 수행하고 있습니다.</p>
+        <div class="mini-cols">
+          <div><h4>담당 역할</h4><ul>
+            <li>그룹웨어 기능 검토 및 도입 실무</li>
+            <li>HR 시스템 ↔ 그룹웨어 인사 정보 연동 검토·적용</li>
+            <li>사용자 매뉴얼 작성 및 현업 사용자 교육</li>
+            <li>도입 후 시스템 운영·장애 대응</li>
+          </ul></div>
+          <div><h4>핵심 성과</h4><ul>
+            <li>전사 대상 그룹웨어 안정적 도입 완료</li>
+            <li>인사 연동으로 수동 관리 업무 자동화 기반 마련</li>
+            <li>운영 체계 정립 및 사용자 응대 프로세스 구축</li>
+          </ul></div>
+        </div>
+        <div class="stack"><span>상용 그룹웨어</span><span>HR 연동</span><span>Notion</span><span>Jira</span></div>
+      </div>
+    </article>
+
+    <!-- ITSM -->
+    <article class="proj" id="p-itsm" data-status="done">
+      <div class="proj-bar"><span class="pid">ITSM — SERVICE CATALOG</span><span class="chip done">✓ 완료</span></div>
+      <div class="proj-body">
+        <h3>ITSM 서비스 체계 정립</h3>
+        <p class="period">2025.03 — 2025.08</p>
+        <p class="summary">사내 IT 서비스 관리 체계(ITSM) 도입 프로젝트에서 서비스 목록·분류 체계 정리에 참여하고, 서비스 요청(SR)의 유형과 처리 프로세스를 정리했습니다. 비체계적으로 접수되던 IT 요청이 분류 체계 기반으로 표준화되어, 직원들이 IT 서비스를 체계적으로 요청하고 처리받는 구조를 만드는 데 기여했습니다.</p>
+        <div class="mini-cols">
+          <div><h4>담당 역할</h4><ul>
+            <li>IT 서비스 목록·분류 체계 정리 참여</li>
+            <li>서비스 요청(SR) 유형 및 처리 프로세스 정리</li>
+            <li>서비스 카탈로그 정리 및 운영 기준 문서화 지원</li>
+          </ul></div>
+          <div><h4>핵심 성과</h4><ul>
+            <li>비체계적 IT 요청을 분류 체계로 구조화</li>
+            <li>서비스 카탈로그 기반 Helpdesk 운영 기반 마련</li>
+            <li>요청 유형별 처리 흐름 표준화</li>
+          </ul></div>
+        </div>
+        <div class="stack"><span>상용 ITSM 솔루션</span><span>Notion</span><span>Figma</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="mod">MOD.02</span><h2>역량</h2><div class="rule"></div></div>
+    <div class="skill-grid">
+      <div class="skill"><h4>PLANNING</h4><ul><li>요구사항 분석·정의서 작성</li><li>업무 프로세스 설계 (AS-IS/TO-BE)</li><li>화면 설계·와이어프레임</li><li>테스트 시나리오 작성</li></ul></div>
+      <div class="skill"><h4>TECH</h4><ul><li>REST API 연동 구조</li><li>DB 구조 이해 · SQL 기초</li><li>SAP 인터페이스 데이터 흐름</li><li>Java(Spring Boot) 구축 경험</li></ul></div>
+      <div class="skill"><h4>OPERATION</h4><ul><li>현업·개발사 커뮤니케이션</li><li>일정 조율·이슈 트래킹</li><li>사용자 교육·매뉴얼 제작</li><li>운영 지원·장애 대응</li></ul></div>
+      <div class="skill"><h4>TOOLS</h4><ul><li>Figma (플로우차트·UI)</li><li>Jira (이슈·스프린트)</li><li>Notion (문서화·요구사항)</li><li>Slack · Office 365</li></ul></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="inner">
+    <div class="foot-grid">
+      <div><span class="lab">Contact</span><h2>읽어주셔서 감사합니다.</h2></div>
+      <div style="display:flex;flex-direction:column;gap:9px;align-items:flex-end">
+        <a href="mailto:siksik2782259@gmail.com">siksik2782259@gmail.com</a>
+        <a href="https://github.com/sunnyy97" target="_blank" rel="noopener">github.com/sunnyy97</a>
+      </div>
+    </div>
+    <p class="fine">© 2026 Lee Seonhui · 본 포트폴리오는 재직 회사의 영업비밀 및 내부 데이터를 포함하지 않으며, 프로젝트는 담당 역할과 프로세스 중심으로, 화면은 목업 데이터 기반 데모로 재구성되었습니다.</p>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* progress bar */
+  var bar = document.getElementById('progress');
+  function prog(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}
+  if(!reduced){window.addEventListener('scroll',prog,{passive:true});prog();}
+
+  /* mobile sidebar */
+  var sb=document.getElementById('sidebar'), mt=document.getElementById('mtoggle');
+  mt.addEventListener('click',function(){
+    var open=sb.classList.toggle('open');
+    mt.setAttribute('aria-expanded',open);
+    mt.textContent=open?'CLOSE':'MENU';
+  });
+  sb.addEventListener('click',function(e){
+    if(e.target.closest('a')&&window.innerWidth<=1000){
+      sb.classList.remove('open');mt.setAttribute('aria-expanded','false');mt.textContent='MENU';
+    }
+  });
+
+  /* active nav via scroll spy */
+  var navLinks=document.querySelectorAll('.tree a');
+  var watch=['about','projects','p-svc','p-side','p-gw','p-itsm','skills','contact'];
+  function spy(){
+    var pos=window.scrollY+140, cur=null;
+    watch.forEach(function(id){
+      var el=document.getElementById(id);
+      if(el && !el.hidden && el.offsetTop<=pos) cur=id;
+    });
+    navLinks.forEach(function(a){
+      a.classList.toggle('active', a.dataset.nav===cur);
+    });
+  }
+  window.addEventListener('scroll',spy,{passive:true});spy();
+
+  /* project filter */
+  var fbtns=document.querySelectorAll('.filters button');
+  var projs=document.querySelectorAll('.proj');
+  var pcount=document.getElementById('pcount');
+  fbtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.f, n=0;
+      fbtns.forEach(function(x){x.setAttribute('aria-pressed', x===b);});
+      projs.forEach(function(p){
+        var show = (f==='all') || (p.dataset.status===f);
+        p.hidden=!show; if(show)n++;
+      });
+      pcount.textContent=n+' / '+projs.length;
+      spy();
+    });
+  });
+
+  /* case tabs */
+  document.querySelectorAll('.case-tabs').forEach(function(tl){
+    var tabs=tl.querySelectorAll('button');
+    tabs.forEach(function(t){
+      t.addEventListener('click',function(){
+        tabs.forEach(function(x){
+          var sel = x===t;
+          x.setAttribute('aria-selected',sel);
+          document.getElementById(x.getAttribute('aria-controls')).hidden=!sel;
+        });
+      });
+    });
+  });
+
+  /* interactive trace diagram */
+  var steps=[
+    {t:'증상', d:'현업으로부터 실적 데이터가 맞지 않는다는 이슈가 접수되었습니다. 화면 오류로 접수 처리하지 않고, 데이터가 어디서 어긋나는지부터 추적하기로 했습니다.'},
+    {t:'업무 흐름 확인', d:'엔지니어가 실적을 입력하는 시점과 경로를 먼저 확인했습니다. 데이터가 언제, 어떤 화면에서, 어떤 순서로 만들어지는지가 출발점이기 때문입니다.'},
+    {t:'채번 기준 확인', d:'SVC와 SAP가 실적을 식별하는 기준값과 전송 규칙이 서로 다르다는 점을 확인했습니다. 두 시스템의 기준을 나란히 비교해 차이를 정리했습니다.'},
+    {t:'I/F 구조 분석', d:'인터페이스로 전달되는 데이터 항목과 구조를 분석하고, 불일치가 후속 데이터에 미치는 영향 범위까지 확인했습니다.'},
+    {t:'원인·조치 정리', d:'개발사, SAP 담당 부서, 현업이 같은 기준으로 논의할 수 있도록 원인과 조치 방향을 문서로 정리했고, 데이터 보정 범위와 재전송 방안을 협의했습니다.'}
+  ];
+  var cur=0;
+  var prevB=document.getElementById('tprev'), nextB=document.getElementById('tnext');
+  var stat=document.getElementById('tstat'), desc=document.getElementById('tdesc');
+  function render(){
+    for(var i=0;i<5;i++){
+      document.getElementById('tn'+i).classList.toggle('on', i<=cur);
+      if(i>0) document.getElementById('tl'+i).classList.toggle('on', i<=cur);
+    }
+    stat.textContent='STEP '+(cur+1)+' / 5';
+    desc.innerHTML='<b>'+steps[cur].t+' —</b> '+steps[cur].d;
+    prevB.disabled=(cur===0); nextB.disabled=(cur===4);
+    nextB.textContent = cur===4 ? '완료' : '다음 단계 →';
+  }
+  if(prevB&&nextB){
+    prevB.addEventListener('click',function(){if(cur>0){cur--;render();}});
+    nextB.addEventListener('click',function(){if(cur<4){cur++;render();}});
+    render();
+  }
+
+  /* reveal + countup */
+  var targets=document.querySelectorAll('.sec-head, .proj, .skill, .rail, .metrics, .about p, .filters');
+  targets.forEach(function(el,i){el.classList.add('reveal');if(i%3===1)el.classList.add('reveal-d1');if(i%3===2)el.classList.add('reveal-d2');});
+  if(reduced||!('IntersectionObserver' in window)){
+    targets.forEach(function(el){el.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    targets.forEach(function(el){io.observe(el);});
+  }
+  var facts=document.querySelectorAll('.metric b');
+  function up(el){
+    var m=el.textContent.match(/^(\d+)(.*)$/); if(!m)return;
+    var end=parseInt(m[1],10), sfx=m[2], t0=null;
+    function s(t){if(!t0)t0=t;var k=Math.min((t-t0)/900,1);el.textContent=Math.round(end*(1-Math.pow(1-k,3)))+sfx;if(k<1)requestAnimationFrame(s);}
+    requestAnimationFrame(s);
+  }
+  if(!reduced&&'IntersectionObserver' in window){
+    var fio=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){up(e.target);fio.unobserve(e.target);}});
+    },{threshold:.6});
+    facts.forEach(function(f){fio.observe(f);});
+  }
+})();
+</script>
+</body>
+</html>
